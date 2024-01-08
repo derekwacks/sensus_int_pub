@@ -1,5 +1,7 @@
 ### Sentiment analysis for U.S. interconnection queues
 
+This project is a work in progress, and I do not have results yet. 
+
 #### Background
 
 The volume of capacity in Independent System Operator/Regional Transmission Organization interconnection queues across the U.S. is at an all-time high, with approximately 947 GW from solar projects and approximately 300 GW from wind projects [(Lawrence Berkley National Lab)](https://emp.lbl.gov/news/grid-connection-requests-grow-40-2022-clean).
@@ -15,16 +17,16 @@ A growing body of academic research studies community opposition to renewable en
 
 There is no consensus on which characteristics may be predictive of community opposition. However, other researchers suggest social media plays an important role. [Fergen et al. (2021)](https://www.sciencedirect.com/science/article/abs/pii/S2214629621003170) suggest social media plays a role in reinforcing negative sentiment, while [Winter et al. (2022)](https://www.nature.com/articles/s41560-022-01164-w) found, "moderate-to-large relationships between various indices of conspiracy beliefs and wind farm opposition".
 
-In this project, I set out to confirm variables predictive of renewable energy development opposition suggested in the literature, while exploring new data (such as the spread of misinformation through community Facebook pages) that might lead to increased opposition. As an early iteration, I focus on wind projects. My objective is to build a model that outputs opposition risk for new projects in U.S. interconnection queues. 
+In this project, I set out to study the relationship between opposition and project withdrawal, confirm variables predictive of renewable energy development opposition suggested in the literature, while exploring new data (such as the spread of misinformation through community Facebook pages) that might lead to increased opposition. As an early iteration, I focus on wind projects. My objective is to build a model that outputs opposition risk for new projects in U.S. interconnection queues. 
 
 #### Code
 
 - coordinate_locator.py: Finds coordinates for towns in the interconnection queue, used for the front end map 
-- corr_amenity_queues.py: Takes processed in-service and withdrawn wind projects and calls models from models.py
 - data_merger.py: Merges and formats project data with other data of interest
 - geojson_creator.py: Creates geojson file for Mapbox using towns in the interconnection queue
 - geojson_publisher.py: Uploads a geojson file to Mapbox via APIs
 - helpers.py: Helper functions (mainly for .csv operations)
+- run_models.py: Takes processed in-service and withdrawn wind projects and calls models from models.py
 - models.py: Contains model training and testing data
 - model_helpers.py: Contains helper functions for models.py
 - natural_amenity_parser.py: Parses and preprocesses natural amenity data

@@ -48,6 +48,29 @@ def rebuild_into_vec(amenity):
     return vec
 
 
+def bayes(merged_data):
+    """
+    WIP
+    A napkin math answer to: What is the probability a project will withdrawal given there is opposition?
+    This is incorrectly blurring the line between withdrawn projects and counties
+    :param merged_data:
+    :return:
+    """
+    withdrawn_count = merged_data['indicator'].value_counts()[0]
+    in_service_count = merged_data['indicator'].value_counts()[1]
+    rb_withdrawn_count = len(merged_data[(merged_data["Opposed"]==1) & (merged_data["indicator"]==0)])
+    pr_opp_given_withdrawn = rb_withdrawn_count / withdrawn_count
+    pr_withdrawn = withdrawn_count / (withdrawn_count + in_service_count)
+    # Number of unique counties in the Bryce database / number of unique counties in the natural amenities database
+    pr_opp = 121 / 3110
+    pr_withdrawn_given_opp = (pr_opp_given_withdrawn * pr_withdrawn) / pr_opp
+    print(pr_opp_given_withdrawn)
+    print(pr_withdrawn)
+    print(pr_opp)
+    print(pr_withdrawn_given_opp)
+    return
+
+
 def naive_bayes(merged_data, params):
     data_version = params["data_version"]
     printing = params["printing"]

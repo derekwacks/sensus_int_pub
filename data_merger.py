@@ -25,9 +25,9 @@ def add_amenity_data_and_save(f_name, path):
     merged_df = merged_df.merge(amenities_data, how="left", on=["County", "State"])
 
     # TODO: add other data here!
-    # opposed_projects_f = "opposed_projects_filled.csv"
-    # opposed_projects = hp.check_path_and_load_data(opposed_projects_f, path_to_data)
-    # merged_df = merged_df.merge(opposed_projects, how="left", on=["County", "State"])
+    #opposed_projects_f = "opposed_projects_filled.csv"
+    #opposed_projects = hp.check_path_and_load_data(opposed_projects_f, path_to_data)
+    #merged_df = merged_df.merge(opposed_projects, how="left", on=["County", "State"])
 
     save_as = "merged_" + f_name
     hp.save_csv(save_as, merged_df, path)
@@ -61,7 +61,7 @@ def add_indicators(saved_names):
     return all_data
 
 
-def create_matrix(f_names_indic_tuples, path):
+def create_matrix(f_names_indic_tuples, path, cols_to_include):
     """
     Assemble a data frame with in-service (successfully operating) and withdrawn projects and amenity tiers
     :param f_names_indic_tuples: list of .CSV data files
@@ -74,8 +74,11 @@ def create_matrix(f_names_indic_tuples, path):
         indicator = tup[1]
         data = hp.check_path_and_load_data(name, path)
         if not data.empty:
-            data = data[['NaturalAmenityTier']].copy()
+            data = data[cols_to_include].copy()
             data = data[data['NaturalAmenityTier'].notnull()]  # remove Nan values
-            data["indicator"] = indicator  # 1 == in service, 0 == withdrawn
+            if 'Opposed' in cols_to_include:
+                data['Opposed'] = data['Opposed'].fillna(0)
+            data['indicator'] = indicator  # 1 == in service, 0 == withdrawn
             merged = pd.concat([merged, data])
     return merged
+

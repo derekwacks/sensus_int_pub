@@ -22,6 +22,7 @@ def get_county(cell, ver):
     print("Setting", name)
     return name
 
+
 def update_state(cell):
     return sn.all_states[cell]
 
@@ -44,6 +45,7 @@ def find_county_name(f_name, path_to_data):
     # Don't rerun
     #hp.save_csv("opposed_projects_partially_filled.csv", data, path_to_data)
     return
+
 
 def main():
     f_name = "opposed_projects_bryce.xlsx"
